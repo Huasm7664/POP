@@ -2,7 +2,10 @@ import { Controller, createExpressServer, useContainer } from "routing-controlle
 import { Container } from 'typedi';
 import "reflect-metadata"
 import { ItemController } from "./controllers/itemController";
-import { InvoiceHeaderController, InvoiceDetailController, CustomerController } from "./controllers/invoiceController";
+
+import { InvoiceHeaderController} from "./controllers/invoiceHeaderController";
+import {  InvoiceDetailController} from "./controllers/invoiceDetailController";
+import { CustomerController } from "./controllers/customerController";
 import dbInit from "./db/init";
 
 
