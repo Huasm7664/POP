@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "lib": ["esnext"],
+        "target": "es2020",
+        "module": "commonjs",
+        "outDir": "bin",
+        "rootDir": "src",
+        "strict": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "strictPropertyInitialization": false,
+        "types": ["node"]
+    },
+    "include": ["src"]
+}
