@@ -12,6 +12,7 @@ export class ItemController{
     @Post()
     async create(@Body() item: any) {
         let result = await this.itemService.create(item);
+        console.log("res: ", result);
         return (result);
     }
     @Put()

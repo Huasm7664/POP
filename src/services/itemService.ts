@@ -6,8 +6,7 @@ export class ItemService{
 
         async create(item:ItemCreationAttributes) {
            await Item.create(item).then((res) => {
-                console.log(res);
-                return("Success");
+                return(res);
             })
             .catch(err => {
                 console.log(err);

@@ -22,7 +22,7 @@ export class Item extends Model<ItemAttributes, ItemCreationAttributes > impleme
 
 Item.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -32,8 +32,8 @@ Item.init({
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: false
+        allowNull: false
+        //unique: false
     }
 }, {
     timestamps: true,

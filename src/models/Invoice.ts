@@ -163,5 +163,5 @@ Customer.init({
 })
 
 // 1:M
-Customer.hasMany(InvoiceHeader, { foreignKey: 'customerId' });
-InvoiceHeader.belongsTo(Customer, { foreignKey: 'customerId' });
+//Customer.hasMany(InvoiceHeader, { foreignKey: 'customerId' });
+//InvoiceHeader.belongsTo(Customer, { foreignKey: 'customerId' });

@@ -12,7 +12,7 @@ export class InvoiceHeaderController{
     @Post()
     async create(@Body() invoiceHeader: any) {
         let result = await this.invoiceHeaderService.create(invoiceHeader);
-        return (result);
+        return ({"status":"success"});
     }
     @Put()
     update(@Body() invoiceHeader:any, @QueryParam('id') id:number) {
