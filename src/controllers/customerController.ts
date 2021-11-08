@@ -1,6 +1,9 @@
-import { Get, JsonController, Put,Post, Delete, Param, Body, QueryParam} from "routing-controllers";
+import { Response } from "express";
+import { Get, JsonController, Put,Post, Delete, Param, Body, QueryParam, Res} from "routing-controllers";
 import { Inject, Service } from "typedi";
+import { ServiceResponse } from "../dto/response";
 import {  CustomerService } from "../services/customerService";
+import { HttpResponse } from "../services/httpResponse";
 
 
 @Service()
@@ -8,15 +11,26 @@ import {  CustomerService } from "../services/customerService";
 export class CustomerController{
 
     @Inject() private customerService: CustomerService;
+    @Inject() private httpResponse: HttpResponse;
 
     @Post()
-    async create(@Body() customer: any) {
-        let result = await this.customerService.create(customer);
-        return (result);
+    async create(@Body() customer: any, @Res() res: Response) {
+        let response:ServiceResponse =<ServiceResponse> await this.customerService.create(customer);
+        
+        if(response.err)
+            this.httpResponse.sendError(500,response.err,"can not save to database", res)
+        
+        this.httpResponse.sendResult(200, response.res, res);
     }
+
     @Put()
-    update(@Body() customer:any, @QueryParam('id') id:number) {
-       return(this.customerService.update(customer, id));
+    async update(@Body() customer:any, @QueryParam('id') @Res() res: Response, id:number) {
+       let response:ServiceResponse = <ServiceResponse> await this.customerService.update(customer, id);
+
+       if(response.err)
+            this.httpResponse.sendError(response.httpCode??500,response.err,"can not save to database", res)
+        
+        this.httpResponse.sendResult(200, response.res, res);
     }
     @Get("/id/:id")
     findById(@Param('id') id: number){

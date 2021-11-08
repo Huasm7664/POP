@@ -4,15 +4,19 @@ import { InvoiceDetail, InvoiceCreationDetailAttributes,} from "../models/invoic
 @Service()
 export class InvoiceDetailService{
 
-    async create(invoiceDetail:InvoiceCreationDetailAttributes) {
-       await InvoiceDetail.create(invoiceDetail).then((res) => {
-            console.log(res);
-            return("Success");
-        })
-        .catch(err => {
-            console.log(err);
-            return(err);
-        });
+    async create(invoiceDetail:InvoiceCreationDetailAttributes) : Promise<{}> {
+
+       try{ 
+            return await InvoiceDetail.create(invoiceDetail).then((res) => {
+            console.log(res.get());
+            return({"res": res.get(), "err": null});
+            })
+            .catch(err => {
+                return({"res": null, "err":err});
+            });
+       } catch(err){
+           return({"res":null, "err": err})
+       }
 
     }
 
@@ -25,13 +29,22 @@ export class InvoiceDetailService{
 
     }
 
-    async update(item:InvoiceDetail , id:number){
-        let _item = this.findById(id);
-        if(!_item){
-            return("no item");  
+    async update(invoiceDetail:InvoiceDetail , id:number) : Promise<{}>{
+        try{
+        let _invoiceDetail =await this.findById(id);
+        if(!_invoiceDetail){
+            return({"res":null, "err": "no customer found" , "httpCode":404}); 
         }
-        let result = await InvoiceDetail.update(item,{where: {id:id}})
-        return (result);
+        return await InvoiceDetail.update(invoiceDetail,{where: {id:id}}).then((res) => {
+        console.log(res.push());
+            return({"res": res.push(), "err": null});  
+            })
+            .catch(err => {
+            return({"res":null , "err":err})
+            });
+        }catch(err){
+            return ({"res":null, "err": err});
+            }
     }
     async deleteElement( id:number){
         

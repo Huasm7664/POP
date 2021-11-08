@@ -1,9 +1,10 @@
 import { DataTypes, DoubleDataType, Model, Optional } from "sequelize";
 import sequelize from "../db/dbContext";
+import { Customer } from "./cutomer";
 
 interface InvoiceHeaderAttributes{
     id: number;
-    customerId: string;
+    customerId: number;
     netTotal: number;
     subTotal: number;
     discount: number;
@@ -13,7 +14,7 @@ export interface InvoiceCreationHeaderAttributes extends Optional<InvoiceHeaderA
 
 export class InvoiceHeader extends  Model<InvoiceHeaderAttributes, InvoiceCreationHeaderAttributes > implements InvoiceHeaderAttributes{
     public id!: number;
-    public customerId!: string;
+    public customerId!: number;
     public netTotal!: number;
     public subTotal!: number;
     public discount!: number;
@@ -25,12 +26,12 @@ export class InvoiceHeader extends  Model<InvoiceHeaderAttributes, InvoiceCreati
 
 InvoiceHeader.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
     customerId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     netTotal: {
@@ -52,3 +53,8 @@ InvoiceHeader.init({
 
     
 })
+
+// InvoiceHeader.hasOne(Customer);
+// Customer.belongsTo(InvoiceHeader, {
+//   foreignKey: 'customerId'
+// });

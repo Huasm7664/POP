@@ -1,9 +1,9 @@
 import { DataTypes, DoubleDataType, Model, Optional } from "sequelize";
 import sequelize from "../db/dbContext";
+import { InvoiceHeader } from "./invoiceHeader";
 
 interface CustomerAttributes{
     id: number;
-    customerId: string;
     customerNmae: string;
     address: string;
 
@@ -13,7 +13,6 @@ export interface CustomerCreationAttributes extends Optional<CustomerAttributes,
 
 export class Customer extends  Model<CustomerAttributes, CustomerCreationAttributes > implements CustomerAttributes{
     public id!: number;
-    public customerId!: string;
     public customerNmae!: string;
     public address!: string;
 
@@ -25,13 +24,9 @@ export class Customer extends  Model<CustomerAttributes, CustomerCreationAttribu
 
 Customer.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-    },
-    customerId: {
-        type: DataTypes.STRING,
-        allowNull: false,
     },
     customerNmae: {
         type: DataTypes.STRING,
@@ -49,3 +44,8 @@ Customer.init({
 
     
 })
+
+Customer.hasMany(InvoiceHeader);
+InvoiceHeader.belongsTo(Customer, {
+  foreignKey: 'id'
+});
