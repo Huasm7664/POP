@@ -4,18 +4,20 @@ import { InvoiceHeader, InvoiceCreationHeaderAttributes } from "../models/invoic
 @Service()
 export class InvoiceHeaderService{
 
-        async create(invoiceHeader:InvoiceCreationHeaderAttributes) {
-           await InvoiceHeader.create(invoiceHeader).then((res) => {
-                console.log(res);
-                return("Success");
-            })
-            .catch(err => {
-                console.log(err);
-                return(err);
-            });
-
+        async create(invoiceHeader:InvoiceCreationHeaderAttributes) : Promise<{}> {
+           try{ 
+                return await InvoiceHeader.create(invoiceHeader).then((res) => {
+                    console.log(res.get());
+                    return({"res" : res.get(), "err": null});
+                })
+                .catch(err => {
+                return({"res": null , "err":err});
+                });
+           }catch(err){
+                return({"res": null, "err": err})
+           }
         }
-
+        
         async listAll(){
             return await InvoiceHeader.findAll({raw: true});
         }
@@ -25,13 +27,23 @@ export class InvoiceHeaderService{
 
         }
 
-        async update(invoiceHeader:InvoiceHeader , id:number){
-            let _invoiceHeader = this.findById(id);
+        async update(invoiceHeader:InvoiceHeader , id:number) : Promise<{}>{
+
+            try{
+            let _invoiceHeader = await this.findById(id);
             if(!_invoiceHeader){
-                return("no invoiceHeader");  
+                return({"res":null, "err": "no customer found" , "httpCode":404}); 
             }
-            let result = await InvoiceHeader.update(invoiceHeader,{where: {id:id}})
-            return (result);
+            return await InvoiceHeader.update(invoiceHeader,{where: {id:id}}).then((res) => {
+                console.log(res.push());
+                return({"res": res.push(), "err": null});  
+                })
+                .catch(err => {
+                return({"res":null , "err":err})
+                });
+            }catch(err){
+                return ({"res":null, "err": err});
+                }
         }
         async deleteElement( id:number){
             

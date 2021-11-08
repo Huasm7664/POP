@@ -3,8 +3,8 @@ import sequelize from "../db/dbContext";
 
 interface InvoiceDetailAttributes{
     id: number;
-    itemId: string;
-    invoiceId: string;
+    itemId: number;
+    invoiceId: number;
     total: number;
     cost: number;
     rate: number;
@@ -15,8 +15,8 @@ export interface InvoiceCreationDetailAttributes extends Optional<InvoiceDetailA
 
 export class InvoiceDetail extends  Model<InvoiceDetailAttributes, InvoiceCreationDetailAttributes > implements InvoiceDetailAttributes{
     public id!: number;
-    public itemId!: string;
-    public invoiceId!: string;
+    public itemId!: number;
+    public invoiceId!: number;
     public total!: number;
     public cost!: number;
     public rate!: number;
@@ -29,16 +29,16 @@ export class InvoiceDetail extends  Model<InvoiceDetailAttributes, InvoiceCreati
 
 InvoiceDetail.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
     itemId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     invoiceId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     total: {

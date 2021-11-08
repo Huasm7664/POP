@@ -1,5 +1,7 @@
 import { Item } from '../models/Item'
-import {  InvoiceHeader, InvoiceDetail, Customer } from '../models/Invoice'
+import {  InvoiceHeader } from '../models/invoiceHeader'
+import {  InvoiceDetail } from '../models/invoiceDetail'
+import {  Customer } from '../models/cutomer'
 
 const isDev = process.env.NODE_ENV === 'development'
 

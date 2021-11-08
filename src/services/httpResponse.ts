@@ -14,3 +14,16 @@ export class HttpResponse {
     }
 
 }
+
+// @Service()
+// export class ClientResponse {
+
+//     async sendResult(httpCode: number, result:{}, res:Response) {
+//       res.status(httpCode).send({"status":httpCode, "result":result})
+//     }
+
+//     async sendError(httpcode: number, err: {}, message:{}, res: Response){
+//         res.status(httpcode).send({"status":httpcode, "error_message":message, "err":err});
+//     }
+
+// }
